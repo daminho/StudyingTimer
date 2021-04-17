@@ -26,51 +26,70 @@ function getTime(min,sec){
 	return pre+":"+suf;
 }
 let timer;
-function studying(){
-	display_quote();
-	var min = document.getElementById("study-min").value;
-	document.getElementById("state").innerHTML = "STUDYING";
-	var sec = min*60;
-	timer = setInterval(function(){
-		minn = Math.floor(sec/60);
-		secc = sec%60;
-		document.getElementById("clock").innerHTML = getTime(minn,secc);
-		sec-=1;
-		if(sec==-1){
-			clearInterval(timer);
-			return;
-		}
-	},1000)
+var _321 = new Audio();
+_321.src = "./_321.wav";
+var _0 = new Audio();
+_0.src = "./_0.wav"
+async function studying() {
+    display_quote();
+    let promise = new Promise((resolve, reject) => {
+        var min = document.getElementById("study-min").value;
+        document.getElementById("state").innerHTML = "STUDYING";
+        var sec = min * 60;
+        timer = setInterval(function () {
+            minn = Math.floor(sec / 60);
+            secc = sec % 60;
+            document.getElementById("clock").innerHTML = getTime(minn, secc);
+            // if(sec>0 && sec<=3){
+            // 	_321.play();
+            // }
+            if(sec ==  0){
+            	_0.play();
+            }
+            sec -= 1;
+            if (sec == -1) {
+                clearInterval(timer);
+                resolve();
+                return;
+            }
+        }, 1000);
+    });
+
+    return promise;
 }
-function breaking(){
-	display_quote();
-	min = document.getElementById("break-min").value;
-	document.getElementById("state").innerHTML = "BREAKING";
-	sec = min*60;
-	timer = setInterval(function(){
-		minn = Math.floor(sec/60);
-		secc = sec%60;
-		document.getElementById("clock").innerHTML = getTime(minn,secc);
-		sec-=1;
-		if(sec==-1){
-			clearInterval(timer);
-			return;
-		}
-	},1000)
+async function breaking() {
+    display_quote();
+    let promise = new Promise((resolve, reject) => {
+        min = document.getElementById("break-min").value;
+        document.getElementById("state").innerHTML = "BREAKING";
+        sec = min * 60;
+        timer = setInterval(function () {
+            minn = Math.floor(sec / 60);
+            secc = sec % 60;
+            document.getElementById("clock").innerHTML = getTime(minn, secc);
+            // if(sec>0 && sec<=3){
+            // 	_321.play();
+            // }
+            if(sec ==  0){
+            	_0.play();
+            }
+            sec -= 1;
+            if (sec == -1) {
+                clearInterval(timer);
+                resolve();
+                return;
+            }
+        }, 1000);
+    });
+
+    return promise;
 }
-let studied = 0;
-function start(){
+
+async function start(){
 	loop = document.getElementById("loop-times").value;
 	// console.log(loop);
-	for(var t=1;t<=2*loop;t++){
-		if(studied == 0){
-			studying();
-			studied = 1;
-		}
-		else{
-			breaking();
-			studied = 0;
-		}
-		
+	for(var t=1;t<=loop;t++){
+		await studying();
+		await breaking();
 	}
 }
