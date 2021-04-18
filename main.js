@@ -44,7 +44,7 @@ async function studying() {
             // 	_321.play();
             // }
             if(sec ==  0){
-            	_0.play();
+            	_321.play();
             }
             sec -= 1;
             if (sec == -1) {
@@ -71,7 +71,7 @@ async function breaking() {
             // 	_321.play();
             // }
             if(sec ==  0){
-            	_0.play();
+            	_321.play();
             }
             sec -= 1;
             if (sec == -1) {
@@ -92,4 +92,47 @@ async function start(){
 		await studying();
 		await breaking();
 	}
+}
+
+
+//mark a task done
+
+$(document).on('click', 'button', function () {
+     var indexRow = this.parentNode.parentNode.rowIndex;
+     console.log(indexRow,typeof(indexRow));
+     if(indexRow!=1 && typeof (indexRow) !== "undefined"){
+     	if(document.getElementById("Tasks").rows[indexRow].className == "undone"){
+     		document.getElementById("Tasks").rows[indexRow].className = "done";
+     		document.getElementById("Tasks").rows[indexRow].cells[1].innerHTML = "<button class = 'btn' id = 'markdone'>Undone</button>"
+     	}
+     	else{
+     		document.getElementById("Tasks").rows[indexRow].className = "undone";
+     		document.getElementById("Tasks").rows[indexRow].cells[1].innerHTML = "<button class = 'btn' id = 'markdone'>Done</button>"
+     	}
+     	
+     }
+})
+
+//adding new tasks
+
+inputText = document.getElementById("users-tasks");
+inputText.addEventListener("keyup", function(event) {
+  		if (event.keyCode === 13) {
+   			event.preventDefault();
+   			document.getElementById("add").click();
+  	}
+});
+function addTasks(){
+	inputText = document.getElementById("users-tasks").value;
+	if(inputText=="")
+		return;
+	console.log(typeof(inputText))
+	var table = document.getElementById("Tasks");
+	var row = table.insertRow(-1);
+	cell = row.insertCell(0);
+	cell.innerHTML = inputText;
+	cell.className = "undone";
+	cell = row.insertCell(1);
+	cell.innerHTML = "<button class = 'btn' id = 'markdone'>Done</button>";
+	document.getElementById("users-tasks").value = "";
 }

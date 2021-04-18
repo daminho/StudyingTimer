@@ -43,8 +43,24 @@
       <button class = "cute-button" onclick="start()">Start studying</button>
     </div>
   </div>
-
     <div class = "split right">
+      <table class="table-task right-centered" id = "Tasks">
+        <thead>
+          <tr>
+            <th>TASKS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style = "height: 50px;">
+            <td>
+              <input size = "40" class = "text-input" type="text" id ="users-tasks" placeholder="add your new task">
+              <br>
+              <button class = "btn" onclick="addTasks()" id = "add">Add</button>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
   </div>
