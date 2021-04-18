@@ -1,5 +1,3 @@
-
-// randomly display a quote
 function display_quote(){
 	n = quotes.length;
 	x = Math.floor(Math.random()*quotes.length);
