@@ -28,12 +28,12 @@ let timer;
 // _321.src = "./_321.wav";
 // var _0 = new Audio();
 // _0.src = "./_0.wav"
+let min,sec;
+let x;
 async function studying() {
     display_quote();
     let promise = new Promise((resolve, reject) => {
-        var min = document.getElementById("study-min").value;
         document.getElementById("state").innerHTML = "STUDYING";
-        var sec = min * 60;
         timer = setInterval(function () {
             minn = Math.floor(sec / 60);
             secc = sec % 60;
@@ -58,9 +58,7 @@ async function studying() {
 async function breaking() {
     display_quote();
     let promise = new Promise((resolve, reject) => {
-        min = document.getElementById("break-min").value;
         document.getElementById("state").innerHTML = "BREAKING";
-        sec = min * 60;
         timer = setInterval(function () {
             minn = Math.floor(sec / 60);
             secc = sec % 60;
@@ -82,12 +80,38 @@ async function breaking() {
 
     return promise;
 }
-
+async function pause(){
+	if(document.getElementById("stop").innerHTML == "Continue"){
+		continuee();
+		return;
+	}
+	clearInterval(timer);
+	document.getElementById("stop").innerHTML = "Continue";
+}
+async function continuee(){
+	document.getElementById("stop").innerHTML = "Pause";
+	state = document.getElementById("state").innerHTML;
+	if(state == "STUDYING"){
+		studying();
+	}
+	else if(state == "BREAKING"){
+		breaking();
+	}
+}
+async function restart(){
+	clearInterval(timer);
+	start();
+}
 async function start(){
 	loop = document.getElementById("loop-times").value;
 	// console.log(loop);
+	clearInterval(timer)
 	for(var t=1;t<=loop;t++){
+		min = document.getElementById("study-min").value;
+		sec = min*60;
 		await studying();
+		min = document.getElementById("break-min").value;
+		sec = min*60;
 		await breaking();
 	}
 }
