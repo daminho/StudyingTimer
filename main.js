@@ -26,10 +26,10 @@ function getTime(min,sec){
 	return pre+":"+suf;
 }
 let timer;
-var _321 = new Audio();
-_321.src = "./_321.wav";
-var _0 = new Audio();
-_0.src = "./_0.wav"
+// var _321 = new Audio();
+// _321.src = "./_321.wav";
+// var _0 = new Audio();
+// _0.src = "./_0.wav"
 async function studying() {
     display_quote();
     let promise = new Promise((resolve, reject) => {
@@ -43,9 +43,9 @@ async function studying() {
             // if(sec>0 && sec<=3){
             // 	_321.play();
             // }
-            if(sec ==  0){
-            	_321.play();
-            }
+            // if(sec ==  0){
+            // 	_321.play();
+            // }
             sec -= 1;
             if (sec == -1) {
                 clearInterval(timer);
@@ -70,9 +70,9 @@ async function breaking() {
             // if(sec>0 && sec<=3){
             // 	_321.play();
             // }
-            if(sec ==  0){
-            	_321.play();
-            }
+            // if(sec ==  0){
+            // 	_321.play();
+            // }
             sec -= 1;
             if (sec == -1) {
                 clearInterval(timer);
